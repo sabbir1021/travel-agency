@@ -1,6 +1,10 @@
 from django.contrib.auth.models import User
 from django import forms
 from .models import Profile
+from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(label='Password',widget=forms.PasswordInput)
@@ -22,3 +26,20 @@ class ProfileEditForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ('address', 'phone', 'photo')
+
+
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('email', 'username',)
+
+    def __init__(self, *args, **kwargs):
+        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
+        self.fields['email'] = forms.EmailField(
+            label=_("E-mail"), max_length=75)
+
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('email', 'username',)
