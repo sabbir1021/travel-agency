@@ -4,6 +4,6 @@ app_name = 'travel'
 
 urlpatterns = [
 # post views
-path('', views.home, name="home"),
+path('', views.HomeView.as_view(), name="home"),
 path('contact', views.contact, name="contact"),
 ]
