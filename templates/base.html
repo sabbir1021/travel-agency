@@ -2,51 +2,22 @@
 <!DOCTYPE html>
 <html class="no-js" lang="zxx">
 
-<!-- Mirrored from ecologytheme.com/theme/travelstar/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Sep 2020 11:44:31 GMT -->
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="TravelStar - Tour, Travel, Travel Agency Template">
     <meta name="keywords" content="Tour, Travel, Travel Agency Template">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TravelStar - Tour, Travel & Travel Agency Template</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{% static 'images/images/favicon.ico' %}">
-    <!-- bootstrap css -->
-    <link rel="stylesheet" href="{% static 'css/assets/bootstrap.min.css' %}">
-    <!-- animate css -->
-    <link rel="stylesheet" href="{% static 'css/assets/animate.css' %}">
-    <!-- Button Hover animate css -->
-    <link rel="stylesheet" href="{% static 'css/assets/hover-min.css' %}">
-    <!-- jquery-ui.min css -->
-    <link rel="stylesheet" href="{% static 'css/assets/jquery-ui.min.css' %}">
-    <!-- meanmenu css -->
-    <link rel="stylesheet" href="{% static 'css/assets/meanmenu.min.css' %}">
-    <!-- owl.carousel css -->
-    <link rel="stylesheet" href="{% static 'css/assets/owl.carousel.min.css' %}">
-    <!-- slick css -->
-    <link rel="stylesheet" href="{% static 'css/assets/slick.css' %}">
-    <!-- chosen.min-->
-    <link rel="stylesheet" href="{% static 'css/assets/jquery-customselect.css' %}">
-    <!-- font-awesome css -->
-    <link rel="stylesheet" href="{% static 'css/assets/font-awesome.min.css' %}">
-    <!-- magnific Css -->
-    <link rel="stylesheet" href="{% static 'css/assets/magnific-popup.csss' %}">
-    <!-- Revolution Slider -->
-    <link rel="stylesheet" href="{% static 'css/assets/revolution/layers.css' %}">
-    <link rel="stylesheet" href="{% static 'css/assets/revolution/navigation.css' %}">
-    <link rel="stylesheet" href="{% static 'css/assets/revolution/settings.css' %}">
-    <!-- Preloader css -->
-    <link rel="stylesheet" href="{% static 'css/assets/preloader.css' %}"> 
-    <!-- custome css -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <!-- responsive css -->
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-    <link rel="stylesheet" href="{% static 'css/master.css' %}">
-    <!-- modernizr css -->
-    <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+    
+	<title>
+        {% block title %}
+            {{title}}
+        {% endblock title %}
+    </title>
+
+	<!-- ========== Include Css ========== -->
+    {% include 'partials/css.html' %}
+
 </head>
 <body> 
 <div id="loader-wrapper">
@@ -54,287 +25,22 @@
     <div class="loader-section section-left"></div>
     <div class="loader-section section-right"></div>
 </div>
-<!-- header area start here -->
-<header>
-	<div class="header_top_area">
-		<div class="container">
-			<div class="row">
-				<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<div class="contact_wrapper_top">
-						<ul class="header_top_contact">
-							<li><i class="fa fa-phone" aria-hidden="true"></i>+123-456-7890</li>
-							<li><i class="fa fa-envelope-o" aria-hidden="true"></i>info@yourcompany.com</li>
-						</ul>
 
-					
-						
-						
-						
-						<div class="book-btn">
-							<a href="#">Book Now</a>
-						</div>
-						
-						
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> <!-- header top end -->
-
-	<div class="main_nav">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-2 col-sm-2 col-xs-12 tap-v-responsive">
-					<div class="logo-area">
-						<a href="{% url 'travel:home' %}"><img src="{% static 'images/logo.png' %}" alt="">
-						</a>
-					</div>
-				</div>
-				<div class="col-md-10">
-					<nav>
-						<ul class="main-menu text-right">
-							<li class="active"><a href="/">Home</a>
-								
-							</li>
-							<li><a href="package-version-one.html">Package List</a>
-								
-							</li>
-							
-							
-							<li><a href="blog-version-one.html">Blog</a>
-								
-							</li>
-							
-							<li><a href="{% url 'travel:contact' %}">Contact</a></li>
-							
-							{% if request.user.is_authenticated %}
-								<li><a href="{% url 'accounts:logout' %}">Logout</a></li>
-								<li><a href="{% url 'accounts:profile' %}">Profile</a></li>
-							{% else %}
-								<li><a href="{% url 'accounts:login' %}">Login</a></li>
-								<li><a href="{% url 'accounts:register' %}">Register</a></li>
-							{% endif %}
-						</ul>
-					</nav>
-				</div> <!-- main menu end here -->
-			</div>
-		</div>
-	</div> <!-- header-bottom area end here -->
-</header> <!-- header area end here -->
+<!-- ========== Include header ========== -->
+{% include 'partials/header.html' %}
 
 {% block content %}
 
 {% endblock content %}
 
-<footer class="footer-area">
-	<div class="container">
-		<div class="row">
-			<!-- footer left -->
-			<div class="col-12 col-sm-6 col-md-6 col-lg-3">
-				<div class="single-footer">
-					<div class="footer-title">
-						<h3><a href="#"><img src="{% static 'images/logo.png' %}" alt=""></a></h3>
-					</div>
-					<div class="footer-left">
-						<div class="footer-logo">
-							<p>Lorem ipsum dolor sit amet conset ctetur adipiscin elit Etiam at ipsum at ligula vestibulum sodales.</p>
-						</div>
-						<ul class="footer-contact">
-							<li><img class="map" src="{% static 'images/icon/map.png' %}" alt="">Seventh Avenue New York</li>
-							<li><img class="map" src="{% static 'images/icon/phone.png' %}" alt="">+123-456-7890</li>
-							<li><img class="map" src="{% static 'images/icon/gmail.png' %}" alt="">info@yourcompany.com</li>
-						</ul>
-					</div>
-				</div>
-			</div> <!-- footer left -->
-
-			<!-- footer destination -->
-			<div class="col-12 col-sm-6 col-md-6 col-lg-2">
-				<div class="single-footer">
-					<div class="footer-title">
-						<h3>Quick Link</h3>
-					</div>
-					<ul class="list-unstyled">
-						<li><a href="#" title="">Home</a></li>
-						<li><a href="#" title="">Package List</a></li>
-						<li><a href="#" title="">Hotels</a></li>
-						<li><a href="#" title="">Flights</a></li>
-						<li><a href="#" title="">Blog</a></li>
-						<li><a href="#" title="">Pages</a></li>
-						<li><a href="#" title="">Contact</a></li>
-					</ul>
-				</div>
-			</div>	<!-- footer destination -->
-
-			<div class="col-12 col-sm-6 col-md-6 col-lg-4">
-				<div class="single-footer">
-					<div class="single-recent-post">
-						<div class="footer-title">
-							<h3>Recent News</h3>
-						</div>
-						<ul class="recent-post">
-							<li>
-								<a href="#">
-									<div class="post-thum">
-										<img src="{% static 'images/blog/f4.jpg' %}" alt="" class="img-rounded">
-									</div>
-									<div class="post-content">
-										<p>A Clean Website Gives More Experience To The Visitors.
-										</p>
-										<span>12 July, 2019</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<div class="post-thum">
-										<img src="{% static 'images/blog/f5.jpg' %}" alt="" class="img-rounded">
-									</div>
-									<div class="post-content">
-										<p>A Clean Website Gives More Experience To The Visitors.
-										</p>
-										<span>12 July, 2019</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<div class="post-thum">
-										<img src="{% static 'images/blog/f6.jpg' %}" alt="" class="img-rounded">
-									</div>
-									<div class="post-content">
-										<p>A Clean Website Gives More Experience To The Visitors.
-										</p>
-										<span>12 July, 2019</span>
-									</div>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>	<!-- footer latest news -->
-
-			<!-- footer contact -->
-			<div class="col-12 col-sm-6 col-md-6 col-lg-3 f-phone-responsive">
-				<div class="single-footer">
-					<div class="footer-title">
-						<h3>Quick Contact</h3>
-					</div>
-					<div class="footer-contact-form">
-						<form action="#">
-							<ul class="footer-form-element">
-								<li>
-									<input type="text" name="email" id="email" placeholder="" value="Email Address" onblur="if(this.value==''){this.value='Email Address'}" onfocus="if(this.value=='Email Address'){this.value=''}">
-								</li>
-								<li class="text_area">
-									<textarea name="message" id="message" cols="30" rows="10" placeholder="Message"></textarea>
-									<button type="submit">Send</button>
-								</li>
-								<li>
-									
-								</li>
-							</ul>
-						</form>
-					</div>
-					<div class="footer-social-media">
-						<div class="social-footer-title">
-							<h3>Follow Us</h3>
-						</div>
-						<ul class="footer-social-link">
-							<li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-							<li class="gplus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							<li class="youtube"><a href="#"><i class="fa fa-youtube-play"></i></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>	<!-- footer contact -->
-		</div>
-	</div>
-	<div class="footer_bottom_wrapper">
-		<div class="container">
-			<div class="row">
-				<div class="col-12 col-sm-12 col-md-12">
-					<div class="copy_right_wrapper">
-						<div class="copyright">
-							<p>Copyright &copy; 2019 Travelstar By Ecology Theme</p>
-						</div>
-						<ul class="payicon pull-right">
-							<li>We Accept : </li>
-							<li><a href="#" title=""><img src="{% static 'images/payicon01.png' %}" alt=""></a></li>
-							<li><a href="#" title=""><img src="{% static 'images/payicon02.png' %}" alt=""></a></li>
-							<li><a href="#" title=""><img src="{% static 'images/payicon03.png' %}" alt=""></a></li>
-							<li><a href="#" title=""><img src="{% static 'images/payicon04.png' %}" alt=""></a></li>
-							<li><a href="#" title=""><img src="{% static 'images/payicon05.png' %}" alt=""></a></li>
-							<li><a href="#" title=""><img src="{% static 'images/payicon06.png' %}" alt=""></a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</footer> <!-- end footer -->
+<!-- ========== Include footer ========== -->
+{% include 'partials/footer.html' %}
 
 <div class="to-top pos-rtive">
 	<a href="#"><i class = "fa fa-angle-up"></i></a>
 </div><!-- Scroll to top-->
     
-    <!-- ============================
-    		JavaScript Files
-    ============================= -->
-    <!-- jquery -->
-    <script src="{% static 'js/vendor/jquery-3.2.0.min.js' %}"></script>
-    <!-- bootstrap js -->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>    
-    <script src="{% static 'js/popper.min.js' %}"></script>
-    <!-- owl.carousel js -->
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-    <!-- slick js -->
-    <script src="{% static 'js/slick.min.js' %}"></script>
-    <!-- meanmenu js -->
-    <script src="{% static 'js/jquery.meanmenu.min.js' %}"></script>
-    <!-- jquery-ui js -->
-    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
-    <!-- wow js -->
-    <script src="{% static 'js/wow.min.js' %}"></script>
-    <!-- counter js -->
-    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
-    <!-- Countdown js -->
-    <script src="{% static 'js/jquery.countdown.min.js' %}"></script>
-    <!-- waypoints js -->
-    <script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
-    <!-- Isotope js -->
-    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
-    <!-- magnific js -->
-    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-    <!-- Image loaded js -->
-    <script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
-    <!-- chossen js -->
-    <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
-    <!-- Revolution JS -->
-    <script src="{% static 'js/assets/revolution/jquery.themepunch.revolution.min.js' %}"></script>
-    <script src="{% static 'js/assets/revolution/jquery.themepunch.tools.min.js' %}"></script>
-    <script src="{% static 'js/assets/revolution/extensions/revolution.extension.actions.min.js' %}"></script>
-    <script src="{% static 'js/assets/revolution/extensions/revolution.extension.carousel.min.js' %}"></script>
-    <script src="{% static 'js/assets/revolution/extensions/revolution.extension.kenburn.min.js' %}"></script>
-    <script src="{% static 'js/assets/revolution/extensions/revolution.extension.layeranimation.min.js' %}"></script>
-    <script src="{% static 'js/assets/revolution/extensions/revolution.extension.migration.min.js' %}"></script>
-    <script src="{% static 'js/assets/revolution/extensions/revolution.extension.navigation.min.js' %}"></script>
-    <script src="{% static 'js/assets/revolution/extensions/revolution.extension.parallax.min.js' %}"></script>
-    <script src="{% static 'js/assets/revolution/extensions/revolution.extension.slideanims.min.js' %}"></script>
-    <script src="{% static 'js/assets/revolution/extensions/revolution.extension.video.min.js' %}"></script>
-    <script src="{% static 'js/assets/revolution/revolution.js' %}"></script>
-    <!-- plugin js -->
-    <script src="{% static 'js/plugins.js' %}"></script>
-    <!-- select2 js -->
-    <script src="{% static 'js/select2.min.js' %}"></script>    
-    <script src="{% static 'js/colors.js' %}"></script>
-    <!-- customSelect Js -->
-    <script src="{% static 'js/jquery-customselect.js' %}"></script>
-    <!-- custom js -->
-    <script src="{% static 'js/custom.js' %}"></script>
+<!-- ========== Include jsr ========== -->
+{% include 'partials/js.html' %}
 </body>
-
-<!-- Mirrored from ecologytheme.com/theme/travelstar/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 01 Sep 2020 11:49:04 GMT -->
 </html>

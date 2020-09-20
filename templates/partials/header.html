@@ -1,0 +1,69 @@
+{% load static %}
+
+<!-- header area start here -->
+<header>
+	<div class="header_top_area">
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="contact_wrapper_top">
+						<ul class="header_top_contact">
+							<li><i class="fa fa-phone" aria-hidden="true"></i>+123-456-7890</li>
+							<li><i class="fa fa-envelope-o" aria-hidden="true"></i>info@yourcompany.com</li>
+						</ul>
+
+					
+						
+						
+						
+						<div class="book-btn">
+							<a href="#">Book Now</a>
+						</div>
+						
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> <!-- header top end -->
+
+	<div class="main_nav">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-2 col-sm-2 col-xs-12 tap-v-responsive">
+					<div class="logo-area">
+						<a href="{% url 'travel:home' %}"><img src="{% static 'images/logo.png' %}" alt="">
+						</a>
+					</div>
+				</div>
+				<div class="col-md-10">
+					<nav>
+						<ul class="main-menu text-right">
+							<li class="active"><a href="/">Home</a>
+								
+							</li>
+							<li><a href="package-version-one.html">Package List</a>
+								
+							</li>
+							
+							
+							<li><a href="blog-version-one.html">Blog</a>
+								
+							</li>
+							
+							<li><a href="{% url 'travel:contact' %}">Contact</a></li>
+							
+							{% if request.user.is_authenticated %}
+								<li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+								<li><a href="{% url 'accounts:profile' %}">Profile</a></li>
+							{% else %}
+								<li><a href="{% url 'accounts:login' %}">Login</a></li>
+								<li><a href="{% url 'accounts:register' %}">Register</a></li>
+							{% endif %}
+						</ul>
+					</nav>
+				</div> <!-- main menu end here -->
+			</div>
+		</div>
+	</div> <!-- header-bottom area end here -->
+</header> <!-- header area end here -->
