@@ -34,6 +34,7 @@ INSTALLED_APPS = [
 
     'accounts',
     'travel',
+    'blog',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,6 +45,8 @@ INSTALLED_APPS = [
 
 
     'crispy_forms',
+    'ckeditor',
+    'debug_toolbar',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -58,9 +61,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'myproject.urls'
+
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]
 
 TEMPLATES = [
     {

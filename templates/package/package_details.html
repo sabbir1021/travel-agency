@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- blog breadcrumb version one strat here -->
+    <section class="breadcrumb-blog-version-one">
+        <div class="single-bredcurms" style="background-image:url('{% static 'images/bercums/package-Version-01.jpg' %}');">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="bredcrums-content">
+                            <h2>Package</h2>
+                            <ul>
+                                <li><a href="index-2.html">Home</a>
+                                </li>
+                                <li class="active"><a href="single-package.html">Package Details</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- blog breadcrumb version one end here -->
+
+    <section class="section-paddings single-package-area">
+        <div class="container">
+            <div class="row">
+                <!-- single package tab with details -->
+                <div class="col-md-8 col-sm-12">
+                    <div class="single-package-details">
+                        <div class="single-package-title">
+                            <h2>{{package.title}}</h2>
+                        </div>
+                        <ul class="package-content d-flex justify-content-between">
+                            <li>{{package.total_day|slice:":2"}} days</li>
+                            <li>
+                                <span>
+                                   <i class="fa fa-star"></i>
+                                   <i class="fa fa-star"></i>
+                                   <i class="fa fa-star"></i>
+                                   <i class="fa fa-star"></i>
+                                   <i class="fa fa-star"></i>
+                               </span>
+                            </li>
+                        </ul>
+                    </div><!-- tab menu strat -->
+                    <div class="package_banner">
+                        {% with package.images.all|first as image %}                      
+                                <img src="{{image.image.url}}" alt="" class="img-fluid">                           
+                        {% endwith %}
+                    </div>
+                    <div class="package-tab-menu">
+                        <ul class="package-tab-menu nav nav-tabs" id="myTab2" role="tablist">
+                            <li role="presentation"><a href="#description" class="active" aria-controls="description" role="tab" data-toggle="tab">Description</a></li>
+                            <li role="presentation"><a href="#itinerary" aria-controls="itinerary" role="tab" data-toggle="tab">Tour Guide</a></li>
+                            <li role="presentation"><a href="#video" aria-controls="video" role="tab" data-toggle="tab">Videos</a></li>
+                            <li role="presentation"><a href="#reviews" aria-controls="reviews" role="tab" data-toggle="tab">Reviews</a></li>
+                        </ul>
+                    </div><!-- tab menu end -->
+
+                    <!-- tab content start -->
+                    <div class="row">
+                        <!-- tabs content -->
+                        <div class="tab-content">
+                            {% include 'package/package_details_partials/description.html' %}
+                            {% include 'package/package_details_partials/tourguide.html' %}
+                            {% include 'package/package_details_partials/video.html' %}
+                            {% include 'package/package_details_partials/review.html' %}
+                        </div><!-- tabs content-->
+                    </div><!-- tab content end -->
+                </div><!-- single package tab with details -->
+                {% include 'package/package_details_partials/booking.html' %}
+            </div>
+        </div>
+    </section>
+    
+
+    {% include 'package/package_details_partials/similar_package.html' %}
+
+{% endblock content %}

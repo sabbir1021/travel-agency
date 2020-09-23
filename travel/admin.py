@@ -1,12 +1,12 @@
 from django.contrib import admin
-from travel.models import Location, Package, PackageImage, PackageSchedule, PackageExtra, PackageVideo
+from travel.models import Location, Package, PackageImage, PackageSchedule, PackageExtra, PackageVideo , Booking , Clientfeedback
 
 # Register your models here.
 
 
 class LocationAdmin(admin.ModelAdmin):
-    list_display = ['city', 'area']
-    search_fields = ('city', 'area',)
+    list_display = ['city', 'place']
+    search_fields = ('city', 'place',)
     list_per_page = 20
 
 
@@ -92,3 +92,7 @@ class PackageVideoAdmin(admin.ModelAdmin):
 
 
 admin.site.register(PackageVideo, PackageVideoAdmin)
+
+
+admin.site.register(Booking)
+admin.site.register(Clientfeedback)

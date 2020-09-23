@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- blog breadcrumb version one strat here -->
+    <section class="breadcrumb-blog-version-one">
+        <div class="single-bredcurms" style="background-image:url('{% static 'images/bercums/Blogs-Version-01.jpg' %}');">
+           <div class="container">
+               <div class="row">
+                    <div class="col-sm-12">
+                        <div class="bredcrums-content">
+                            <h2>Blog Post</h2>
+                            <ul>
+                                <li><a href="index-2.html">Home</a></li>
+                                <li class="active"><a href="blog-single.html">Blog-Post</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- blog breadcrumb version one end here -->
+
+    <!-- Start blog -->
+    <section id="blog" class="section-paddings single section page blog_wrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-sm-12 col-xs-12">
+                        <!-- Single blog -->
+                        <div class="single-blog">
+                            <img src="{{post.image.url}}" alt="#">
+                            <div class="blog-content">
+                                <h2>{{post.title}}</h2>
+                                <div class="meta">
+                                    <span><i class="fa fa-user"></i>Admin</span>
+                                    <span><i class="fa fa-calender"></i>June 19</span>
+                                    <span><i class="fa fa-comments"></i>65 Comments</span>
+                                </div>
+                                <p>{{ post.description | safe }}</p>
+                            </div>
+                        </div><!--/ End Single blog -->
+
+                        <!-- Blog Comment Wrappper-->
+                        <div class="commnet-wrapper">
+                            <div class="items_title">
+                                <h3 class="title">2 Commnets</h3>
+                            </div>
+                             <div class="comment-list-items">
+                                <div class="comment-list-wrapper">
+                                    <div class="comment-list">
+                                        <div class="commnet_img">
+                                            <img src="{% static 'images/blog/comments1.jpg' %}" alt="member img" class="img-fluid">
+                                        </div>
+                                        <div class="comment-text">
+                                            <div class="author_info"> 
+                                                <div class="author_name">
+                                                    <a href="#" class="">Adam Smith</a> 
+                                                    <span>20 July 2019 at 10.45 AM</span>
+                                                 </div>
+                                                 <div class="reply-comment">
+                                                    <a href="#" title=""> <i class="flaticon-reply-arrow"></i> Reply</a>
+                                                </div> 
+                                            </div>     
+                                            <p>You need to be sure there isn't anything embarrassing hidden in the repeat predefined chunks as nessing hidden in the repeat predefined chunks as necessary, making this the first true generator on the Internet.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="comment-list reply_comment_text">
+                                        <div class="commnet_img">
+                                           <img src="{% static 'images/blog/comments2.jpg' %}" alt="member img" class="img-fluid">
+                                        </div>
+                                        <div class="comment-text">
+                                            <div class="author_info"> 
+                                                <div class="author_name">
+                                                    <a href="#" class="">Jonson Park</a> 
+                                                    <span>20 July 2019 at 10.45 AM</span>
+                                                 </div>
+                                                 <div class="reply-comment">
+                                                    <a href="#" title=""> <i class="flaticon-reply-arrow"></i> Reply</a>
+                                                </div> 
+                                            </div>     
+                                            <p>You need to be sure there isn't anything embarrassing hidden in the repe essary, making this the first true generator on the Internet.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="comment-list-wrapper">
+                                    <div class="comment-list">
+                                        <div class="commnet_img">
+                                            <img src="{% static 'images/blog/comments1.jpg' %}" alt="member img" class="img-fluid">
+                                        </div>
+                                        <div class="comment-text">
+                                            <div class="author_info"> 
+                                                <div class="author_name">
+                                                    <a href="#" class="">Jonathon Smith</a> 
+                                                    <span>20 July 2019 at 10.45 AM</span>
+                                                 </div>
+                                                 <div class="reply-comment">
+                                                    <a href="#" title=""> <i class="flaticon-reply-arrow"></i> Reply</a>
+                                                </div> 
+                                            </div>     
+                                            <p>You need to be sure there isn't anything embarrassing hidden in the repeat predefined chunks as nessing hidden in the repeat predefined chunks as necessary, making this the first true generator on the Internet.</p>
+                                        </div>                               
+                                    </div>
+                                </div>
+                            </div> 
+                            <!--  Leave Commnent Wrapper -->
+                            <div class="leave_comment_wrapper">
+                                <div class="items_title">
+                                    <h3 class="title">Leave A Comment</h3>
+                                    <p>You need to be sure there isn't anything embarrassing hidden in the repeat predefined</p>
+                                </div>
+                                <div class="leave_comment">
+                                    <div class="contact_form">
+                                        <form action="#">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-12 col-md-6 form-group">
+                                                   <input type="text" class="form-control" id="name"  placeholder="Name">
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-6 form-group">
+                                                    <input type="email" class="form-control" id="email" placeholder="Email">
+                                                </div>
+                                                <div class="col-12 col-sm-12 col-md-12 form-group">
+                                                    <textarea class="form-control" id="comment" placeholder="Your Comment Wite Here ..."></textarea>
+                                                </div>
+
+
+                                                 <div class="col-12 col-sm-12 col-md-12 submit-btn">
+                                                    <button type="submit" class="text-center">Post Comment</button>
+                                                </div>
+                                            </div>
+                                        </form>   
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 blog_wrapper_right ">
+                    <div class="blog-right-items">
+
+                        {% comment %} <div class="search_blog widget_single">
+                            <div class="form-full-box">
+                                <form>
+                                    <div class="form-group">
+                                        <input class="form-control" name="name" placeholder="Write Your Name" required="" type="text">
+                                        <button class="register-btn" type="submit"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div> {% endcomment %}
+
+
+                        <div class="recent_post_wrapper widget_single">
+                            <div class="items-title">
+                                <h3 class="title">Recent Post</h3>
+                            </div>
+                            {% for post in recent_post %}
+                            <div class="single-post">
+                                <div class="recent_img">
+                                    <a href="{% url 'blog:single_post' post.id %}" title=""><img src="{{post.image.url}}" alt="" class="img-fluid"></a>
+                                </div>
+                                <div class="post_title">
+                                    <a href="{% url 'blog:single_post' post.id %}" title="">{{post.title}}</a>
+                                    <div class="post-date">
+                                        <span>{{post.created_at}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="archives widget_single">
+                            <div class="items-title">
+                                <h3 class="title">All Categories</h3>
+                            </div>
+                            <div class="archives-items">
+                                <ul class="list-unstyled">
+                                    {% for category in category_list %}
+                                    <li><a href="{% url 'blog:category_post' category.name category.id %}" title=""><span>{{category.name}}</span> <span>{{category.category.all.count}}</span></a> </li>
+                                    {% endfor %}
+                                    
+                                </ul>
+                            </div>
+                        </div>  
+
+                        {% comment %} <div class="popular_tags widget_single">
+                            <div class="items-title">
+                                <h3 class="title">Popular Tags</h3>
+                            </div>
+                            <div class="tags-items">
+                                <ul class="list-unstyled">
+                                    <li><a href="#" title="">Travel</a></li>
+                                    <li><a href="#" title="">Amazing</a></li>
+                                    <li><a href="#" title="">Clean</a></li>
+                                    <li><a href="#" title="">Responsive</a></li>
+                                    <li><a href="#" title="">Room</a></li>
+                                    <li><a href="#" title="">Travel Tips</a></li>
+                                    <li><a href="#" title="">Tour</a></li>
+                                    <li><a href="#" title="">Design</a></li>
+                                </ul>
+                            </div>
+                        </div>   {% endcomment %}
+
+                    </div>
+                </div><!-- ./ End  Blog Right Wrapper-->
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

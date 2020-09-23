@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils.text import slugify
 from django.utils.html import mark_safe
+from django.contrib.auth.models import User
+from django.conf import settings
+
 # Create your models here.
 
 
@@ -20,16 +23,17 @@ class Location(models.Model):
         ('Khulna', 'Khulna'),
         ('Rajshahi', 'Rajshahi')
     )
-    division = models.CharField(max_length=200, choices=DIVISION_CHOICES)
-    city = models.CharField(max_length=100)
-    area = models.CharField(max_length=100)
+    division = models.CharField(max_length=200, choices=DIVISION_CHOICES , blank=True)
+    city = models.CharField(max_length=100 )
+    place = models.CharField(max_length=100)
+    image = models.ImageField(upload_to="Location Image")
 
     class Meta:
         verbose_name = 'Location'
         verbose_name_plural = '1. Location'
 
     def __str__(self):
-        return f"{self.city} --> {self.area}"
+        return f"{self.city} --> {self.place}"
 
 
 class Package(models.Model):
@@ -41,6 +45,7 @@ class Package(models.Model):
     description = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()
+    special = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = 'Package'
@@ -56,7 +61,7 @@ class Package(models.Model):
 
     @property
     def total_day(self):
-        return self.end_date - self.start_date
+        return str(self.end_date - self.start_date)
 
     def __str__(self):
         return self.title
@@ -125,3 +130,24 @@ class PackageVideo(models.Model):
 
     def __str__(self):
         return self.package.title
+
+
+class Booking(models.Model):
+    package = models.ForeignKey(Package, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
+    phone = models.CharField(max_length=50)
+    message = models.TextField()
+
+    def __str__(self):
+        return str(self.name)
+
+class Clientfeedback(models.Model):
+    name = models.CharField(max_length=50)
+    address = models.CharField(max_length=50)
+    message = models.TextField()
+    image = models.ImageField(upload_to="Clinet feedback")
+    rating = models.IntegerField(default=True)
+
+    def __str__(self):
+        return str(self.name)

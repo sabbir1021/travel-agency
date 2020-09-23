@@ -1,0 +1,19 @@
+{% load static %}
+                        <!-- video tab content start -->
+                            <div role="tabpanel" class="tab-pane fade" id="video">
+                                <div class="row">
+                                    <div class="col-12 col-md-12 col-sm-12">
+                                        <div class="tour-description">
+                                            <h4>Video</h4>
+                                            <!-- Video -->
+                                            <div class="tab-video-area video-bg">
+                                                <div class="video-play-btn">
+                                                    {% with package.videos.all|first as link %}
+                                                    <a href="{{link.link}}" class="video_iframe"><span><i class="fa fa-play"></i></span></a>
+                                                    {% endwith %}
+                                                </div>
+                                            </div><!-- Video -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- video tab content end -->

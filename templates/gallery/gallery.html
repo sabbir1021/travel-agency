@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- blog breadcrumb version one strat here -->
+    <section class="breadcrumb-blog-version-one">
+        <div class="single-bredcurms" style="background-image:url('{% static 'images/bercums/package-Version-01.jpg' %}');">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="bredcrums-content">
+                            <h2>Gallery</h2>
+                            <ul>
+                                <li><a href="index-2.html">Home</a>
+                                </li>
+                                <li class="active"><a href="single-package.html">Gallery All</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- blog breadcrumb version one end here -->
+<div class="section-paddings incredible-places">
+	<div class="container">
+		<div class="row">
+			
+		</div>
+		<div class="row places_img_wrapper">
+			{% for package in package_list %}
+				{% for image in package.images.all %}
+					<div class="col-12 col-sm-6 col-md-6 col-lg-4">
+						<div class="single-place">
+							<figure>							
+								<img class="mb-2" src="{{image.image.url}}" alt="">
+								<figcaption>	
+									<a href="{{image.image.url}}" title="<h4>{{image.package.title}}</h4> <h5>{{image.package.location.city}} Bangladesh</h5> "><i class="fa fa-eye"></i></a>									
+									<h4>Place <span>{{image.package.title}}</span></h4>
+									<h3>City : <span>{{image.package.location.city}}</span></h3>
+								</figcaption>
+							</figure>
+						</div>
+					</div> <!-- end single place -->
+				{% endfor %}
+			{% endfor %}
+		</div>
+	</div>
+</div> <!-- incredible place end here -->
+{% endblock content %}

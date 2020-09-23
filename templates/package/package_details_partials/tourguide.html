@@ -1,0 +1,23 @@
+{% load static %}
+
+                            <div role="tabpanel" class="tab-pane fade" id="itinerary">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="tour-description">
+                                            <h4>Tour Description</h4>
+                                            <div class="main-timeline">
+                                                {% for schedule in package.schedules.all %}
+                                                <!-- single timeline -->
+                                                <div class="timeline">
+                                                    <div class="timeline-content left">
+                                                        <span class="timeline-icon">{{forloop.counter}}</span>
+                                                        <h4>{{schedule.title}}</h4>
+                                                        <p>{{schedule.description}}</p>
+                                                    </div>
+                                                </div><!-- single timeline -->
+                                                {% endfor %}                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>

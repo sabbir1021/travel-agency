@@ -1,0 +1,66 @@
+{% load static %}
+
+<!-- realted tour start here -->
+    <section class="related-tour popular-packages">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="section-title-3 mbt-100">
+                        <h2>Similar Packages</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for Similar in Similar_Packages %}
+                <!-- single package start -->
+                <div class="col-12 col-sm-6 col-md-6 col-lg-4 ">
+					<div class="single-package-carasoul">
+                        <div class="package-location">
+                             {% with Similar.images.all|first as image %}
+                                <a href="">
+                                    <img src="{{image.image.url}}" alt="">
+                                </a>
+                            {% endwith %}
+							<span>${{Similar.price}}</span>                            
+                        </div>
+                        <div class="package-details">
+                            <div class="package-places package-image">
+                                <h4>{{Similar.title}}</h4>
+								<h6>{{Similar.location.city}},{{Similar.location.division}}</h6>
+                                <div class="details">
+                                    <p><span>Included</span>: 
+									{% if Similar.extras %}
+										{% with Similar.extras.all|first as name %}
+										{{name.name}}
+										{% endwith %}
+									{% else %}
+										Not included any Extra 
+									{% endif %}
+									</p>
+                                </div>
+								<div class="details">
+									<p><span>Total Days</span>: {{Similar.total_day|slice:":2"}} Days</p>
+								</div>
+							</div>
+							<div class="package-ratings-review">
+                                <ul class="two-column start-design">
+									<li><a href="#" class="travel-booking-btn hvr-shutter-out-horizontal">Book Now</a></li>
+									<li>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+										<i class="fa fa-star"></i>
+									</li>
+                                </ul>
+                            </div> 
+                        </div>						
+                    </div>					
+				</div>
+				<!-- single package end -->
+                {% endfor %}
+
+                
+            </div>
+        </div>
+    </section>

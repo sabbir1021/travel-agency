@@ -54,7 +54,8 @@
 						<div id="contact">  
 							<div id="message"></div> 						
 							<!-- Contact Form -->
-							<form class="form" method="post" action="http://ecologytheme.com/theme/travelstar/contact.php" name="contactform" id="contactform">
+							<form class="form" action="{% url 'travel:send_email' %}" method="POST">
+                                {% csrf_token %}
 								<div class="form-group">
 									<input type="text" placeholder="Name" required="required" name="name" id="name">
 								</div>
@@ -62,10 +63,10 @@
 									<input type="email" placeholder="Email" required="required" name="email" id="email">
 								</div>
 								<div class="form-group">
-									<input type="text" placeholder="Subject" required="required" name="subject" id="subject">
+									<input type="text" placeholder="phone" required="required" id="phone" name="phone">
 								</div>
 								<div class="form-group">
-									<textarea name="message" rows="6" placeholder="Message" name="comments" id="comments"></textarea>
+									<textarea name="comments" rows="6" placeholder="Message" id="comments"></textarea>
 								</div>
 								<div class="form-group">
 									<button type="submit" class="button primary"><i class="fa fa-send"></i>Submit</button>

@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- blog breadcrumb version one strat here -->
+<section class="breadcrumb-blog-version-one">
+    <div class="single-bredcurms" style="background-image:url('{% static 'images/bercums/Blogs-Version-01.jpg' %}');">
+       <div class="container">
+           <div class="row">
+               <div class="col-sm-12">
+                 <div class="bredcrums-content">
+                     <h2>Blog</h2>
+                     <ul>
+                        <li><a href="index-2.html">Home</a></li>
+                        <li class="active"><a href="blog-version-two.html">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section><!-- blog breadcrumb version one end here -->
+
+
+<section class="blog_wrapper">
+    <div class="container">  
+        <div class="row">        
+            <div class="col-12 col-sm-12 col-md-8 col-lg-8">
+                <div class="row " style="margin-bottom: 50px;">
+                    {% for blog in blog_list %}
+                    <div class="col-12 col-sm-6 col-md-6 col-lg-6 phone-layout-s">
+                        <div class="single-travel-blog">
+                            <div class="blog-image">
+                                <a href="{% url 'blog:single_post' blog.id %}"><img src="{{blog.image.url}}" alt="">
+                                </a>
+                            </div>
+                            <div class="blog-content">
+                                <div class="blog-meta">
+                                    <div class="post-date">
+                                        <span>{{blog.created_at}}</span>
+                                    </div>
+                                    <ul class="post-social">
+                                        <li><a href="#"><i class="fa fa-comments"></i>3</a>
+                                        </li>
+                                        <li><a href="#"><i class="fa fa-heart-o"></i>43</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="blog-post-content">
+                                    <h4><a href="{% url 'blog:single_post' blog.id %}" title="">{{blog.title}}</a></h4>
+                                    <p>Lorem ipsum dolor sit amet consepctetur adipiscing elit Etiam at ipsum at ligula vestibulum sodales Sed luctus.</p>
+                                    <a href="{% url 'blog:single_post' blog.id %}">Read More <i class="fa fa-angle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!--end single travel guide & security-->
+                    {% endfor %}
+                </div>
+                {% include 'partials/paginate.html' %}       
+            </div> <!-- End Blog Right Side -->
+
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4 blog_wrapper_right ">
+                <div class="blog-right-items">
+
+                    <div class="search_blog widget_single">
+                        <div class="form-full-box">
+                            <form method="GET" action="{% url 'blog:search_post' %}">
+                                <div class="form-group">
+                                    <input class="form-control" name="q" placeholder="Write Your Name" required="" type="text">
+                                    <button class="register-btn" type="submit"><i class="fa fa-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <div class="recent_post_wrapper widget_single">
+                        <div class="items-title">
+                            <h3 class="title">Recent Post</h3>
+                        </div>
+                        {% for post in recent_post %}
+                        <div class="single-post">
+                            <div class="recent_img">
+                                 <a href="{% url 'blog:single_post' post.id %}" title=""><img src="{{post.image.url}}" alt="" class="img-fluid"></a>
+                            </div>
+                            <div class="post_title">
+                                <a href="{% url 'blog:single_post' post.id %}" title="">{{post.title}}</a>
+                                <div class="post-date">
+                                    <span>{{post.created_at}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="archives widget_single">
+                        <div class="items-title">
+                            <h3 class="title">All Categories</h3>
+                        </div>
+                        <div class="archives-items">
+                            <ul class="list-unstyled">
+                                {% for category in category_list %}
+                                <li><a href="{% url 'blog:category_post' category.name category.id %}" title=""><span>{{category.name}}</span> <span>{{category.category.all.count}}</span></a> </li>
+                                {% endfor %}
+                                
+                            </ul>
+                        </div>
+                    </div>  
+
+                    {% comment %} <div class="popular_tags widget_single">
+                        <div class="items-title">
+                            <h3 class="title">Popular Tags</h3>
+                        </div>
+                        <div class="tags-items">
+                            <ul class="list-unstyled">
+                                <li><a href="#" title="">Travel</a></li>
+                                <li><a href="#" title="">Amazing</a></li>
+                                <li><a href="#" title="">Clean</a></li>
+                                <li><a href="#" title="">Responsive</a></li>
+                                <li><a href="#" title="">Room</a></li>
+                                <li><a href="#" title="">Travel Tips</a></li>
+                                <li><a href="#" title="">Tour</a></li>
+                                <li><a href="#" title="">Design</a></li>
+                            </ul>
+                        </div>
+                    </div>   {% endcomment %}
+                </div>
+            </div><!-- ./ End  Blog Right Wrapper-->
+            
+        </div>
+    </div> 
+</section><!-- ./ End  Blog Wrapper-->
+ 
+{% endblock content %}

@@ -1,0 +1,53 @@
+{% load static %}
+
+<section class="search_area">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 col-md-12">
+				<div class="search_form">
+					<form action="#" method="post">
+						<div class="form-group">
+							<label><i class="fa fa-map-marker"></i></label>
+							<select class="hotel-input-first" name="" id="">
+								<option value="volvo">Division</option>
+								{% for location in location_pak %}
+								<option value="volvo">{{location.division}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="form-group">
+							<label><i class="fa fa-map-marker"></i></label>
+							<select class="hotel-input-first" name="" id="">
+								<option value="volvo">Division</option>
+								{% for location in location_pak %}
+								<option value="volvo">{{location.city}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="form-group ">
+							<label><i class="fa fa-map-marker"></i></label>
+							<input type="search" name="s" id="keyword2" class="hotel-input-first" placeholder="Type Keyword">
+						</div>
+						<div class="form-group">
+							<label><i class="fa fa-calendar"></i></label>
+							<input type="button" name="s" value="Date" id="datepicker2" class="hotel-input-first">
+						</div>
+						<div class="form-group">
+							<label><i class="fa fa-dollar"></i></label>
+							<select class="hotel-input-first" name="" id="">
+								<option value="volvo">price range</option>
+								<option value="volvo">0 to 1000</option>
+								<option value="saab">0 to 3000</option>
+								<option value="mercedes">0 to 5000</option>
+								<option value="audi">5000 +</option>
+							</select>
+						</div>
+						<div class="form-group searc-btn-7">
+							<button type="submit">Search</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</section> <!-- header tab based search area end-->

@@ -7,6 +7,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls' , namespace='accounts')),
     path('', include('travel.urls' , namespace='travel') ),
+    path('blog/', include('blog.urls' , namespace='blog') ),
     
 ]
 
@@ -21,3 +22,9 @@ if settings.FORCE_STATIC_FILE_SERVING and not settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
     settings.DEBUG = False
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

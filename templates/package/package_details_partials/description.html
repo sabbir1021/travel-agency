@@ -1,0 +1,35 @@
+{% load static %}
+
+                            <div role="tabpanel" class="tab-pane fade show active in" id="description">
+                                <div class="row">
+                                    <!-- left content -->
+                                    <div class="col-md-12 col-sm-12">
+                                        <div class="tour-description">
+                                            <p>{{package.description}}</p>
+                                        </div>
+                                        <div class="chosse-packge">
+                                            
+                                            <div class="row">
+                                                <div class="col-12 col-md-12 col-sm-12">
+                                                    <div class="packaging_contents_wrapper">
+                                                        <h4>Additional Info</h4>
+                                                        <div class="packaging-contents">
+                                                            <ul class="list-unstyled">
+                                                                <li><span><i class="fa fa-map-marker"></i>Location</span><span>{{package.location.city}},{{package.location.city}}</span></li>
+                                                                <li><span><i class="fa fa-clock-o"></i>Duration</span><span>{{package.total_day|slice:":2"}} Days</span></li>
+                                                                
+                                                            </ul>
+                                                            <ul class="list-unstyled">
+                                                                
+                                                                <li><span><i class="fa fa-calendar-check-o"></i>Check In</span><span>{{package.start_date|date:"d-F-Y"}}</span></li>
+                                                                <li><span><i class="fa fa-calendar-minus-o"></i>Check Out</span><span>{{package.end_date|date:"d-F-Y"}}</span></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!-- left-content -->
+
+                                </div>
+                            </div>

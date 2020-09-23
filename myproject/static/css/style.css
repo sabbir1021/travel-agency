@@ -652,7 +652,7 @@ header .main_nav .main-menu > li.active a:before {
   outline: none;
 }
 .search_area .search_form {
-  padding: 0 16%;
+  
 }
 .search_area .search_form form {
   display: -webkit-box;
@@ -688,7 +688,23 @@ header .main_nav .main-menu > li.active a:before {
   text-align: left;
   width: 100%;
 }
+.search_area .search_form form .form-group select {
+  -moz-user-select: none;
+  background: #ffffff none repeat scroll 0 0;
+  border: medium none;
+  color: #555555;
+  height: 60px;
+  padding: 16px 20px 16px 40px;
+  position: relative;
+  text-align: left;
+  width: 100%;
+  -webkit-appearance: none;
+  
+}
 .search_area .search_form form .form-group input:focus {
+  outline: none;
+}
+.search_area .search_form form .form-group select:focus {
   outline: none;
 }
 .search_area .search_form form .form-group input::-webkit-input-placeholder {
@@ -1776,7 +1792,30 @@ header .main_nav .main-menu > li.active a:before {
 }
 .single-package-carasoul .package-location {
   position: relative;
+  
+  
 }
+
+.single-package-carasoul:hover .package-location a img {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+
+ .single-package-carasoul .package-location {
+  overflow: hidden;
+}
+.single-package-carasoul .package-location a img {
+  display: block;
+  width: 100%;
+  -webkit-transform: scale(1);
+  transform: scale(1);
+  -webkit-transition: all ease-in-out 0.3s;
+  transition: all ease-in-out 0.3s;
+}
+
+
+
 .single-package-carasoul .package-location span {
   background: #f15b5c none repeat scroll 0 0;
   top: 0;
@@ -5438,4 +5477,15 @@ aside .booking-form .form_btn {
 }
 
 /* new style for profile */
+
+.start-design {
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+
+
+
 

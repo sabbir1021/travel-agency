@@ -1,0 +1,44 @@
+{% load static %}
+
+            <!-- booking form start here -->
+                <div class="col-md-4 col-sm-12">
+                    <aside>
+                        <div class="booking-form">
+                            <div class="booking-title">
+                                <h2>Book This Tour</h2>
+                                <p>Lorem ipsum dolor sit amet, consectet ur adipiscing elit, sedpr do eiusmod tempor incididunt ut.</p>
+                            </div>
+                            <form action="#" method="post">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control"   placeholder="Name " value ="{{user.first_name}}{{user.last_name}}">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" class="form-control"  placeholder="E-mail" value ="{{user.email}}">
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" name="phone" class="form-control"  placeholder="Phone Number" value ="{{user.profile.phone}}">
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="message" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
+                                </div>
+                                <div class="form-group form_btn">
+                                    <button type="submit" class="booking-confirm hvr-shutter-out-horizontal">Book Now</button>
+                                </div>
+                            </form>
+                        </div>
+                    </aside><!-- adverestment start here-->
+
+                    <div class="adding-form">
+                        <div class="addfor-bg">
+                            <div class="add-content">
+                                <h3>Get A Question!</h3>
+                                <p>Lorem ipsum dolor sit amet, consectet ur adipiscing elit, sedpr do eiusmod tempor incididunt ut.</p>
+                                <ul class="contact-for-add">
+                                    <li><img src="images/icon/phone.png" alt="">+123-456-7890</li>
+                                    <li><img src="images/icon/gmail.png" alt="">info@yourcompany.com</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div><!-- adverestment start here-->
+                </div><!-- booking form end here -->

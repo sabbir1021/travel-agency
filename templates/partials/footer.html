@@ -44,45 +44,26 @@
 				<div class="single-footer">
 					<div class="single-recent-post">
 						<div class="footer-title">
-							<h3>Recent News</h3>
+							<h3>Recent Package</h3>
 						</div>
 						<ul class="recent-post">
+							{% for package in package_list %}
 							<li>
 								<a href="#">
 									<div class="post-thum">
-										<img src="{% static 'images/blog/f4.jpg' %}" alt="" class="img-rounded">
+										{% with package.images.all|first as image %}
+											<img src="{{image.image.url}}" alt="" class="img-rounded" width="70px">
+										{% endwith %}
 									</div>
 									<div class="post-content">
-										<p>A Clean Website Gives More Experience To The Visitors.
+										<p>{{package.title}}
 										</p>
-										<span>12 July, 2019</span>
+										<span>Date : {{package.start_date|date:"c"}}</span>
 									</div>
 								</a>
 							</li>
-							<li>
-								<a href="#">
-									<div class="post-thum">
-										<img src="{% static 'images/blog/f5.jpg' %}" alt="" class="img-rounded">
-									</div>
-									<div class="post-content">
-										<p>A Clean Website Gives More Experience To The Visitors.
-										</p>
-										<span>12 July, 2019</span>
-									</div>
-								</a>
-							</li>
-							<li>
-								<a href="#">
-									<div class="post-thum">
-										<img src="{% static 'images/blog/f6.jpg' %}" alt="" class="img-rounded">
-									</div>
-									<div class="post-content">
-										<p>A Clean Website Gives More Experience To The Visitors.
-										</p>
-										<span>12 July, 2019</span>
-									</div>
-								</a>
-							</li>
+							{% endfor %}
+							
 						</ul>
 					</div>
 				</div>
