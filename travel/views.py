@@ -2,7 +2,7 @@ from django.shortcuts import render , get_object_or_404 , redirect, HttpResponse
 from .models import Package , Location , Clientfeedback
 from django.views import View, generic
 from django.db.models import Max, Min , Count , Sum
-from .forms import BookingForm
+from .forms import BookingForm , FilterForm
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -17,6 +17,47 @@ class HomeView(View):
         location_pak = Location.objects.all()
         blog_post = Post.objects.all()
         clients = Clientfeedback.objects.all().order_by('-id')[:5]
+        
+        form = FilterForm(request.GET)
+        if form.is_valid():
+            price = request.GET.get('price_range')
+            date = request.GET.get('date') or None
+            title = request.GET.get('title')
+            city = request.GET.get('city')
+
+            if date == None:
+                if price == "500" or price == "1000" or price== "5000":
+                    if city=='':
+                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(0,price), title__contains=title )
+                    else:
+                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(0,price) ,location__city=city, title__contains=title )
+                if price == "inf":
+                    if city=='':
+                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(5000,100000),title__contains=title)
+                    else:
+                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(5000,100000),title__contains=title, location__city=city)
+                if price == '0':
+                    if city=='':
+                        package_list = Package.objects.prefetch_related('images','extras').filter(title__contains=title)
+                    else:
+                        package_list = Package.objects.prefetch_related('images','extras').filter(title__contains=title, location__city=city)
+            else:
+                if price == "500" or price == "1000" or price== "5000":
+                    if city=='':
+                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(0,price), start_date=date,title__contains=title )
+                    else:
+                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(0,price) ,location__city=city, start_date=date,title__contains=title )
+                if price == "inf":
+                    if city=='':
+                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(5000,100000),start_date=date,title__contains=title)
+                    else:
+                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(5000,100000),start_date=date,title__contains=title, location__city=city)
+                if price == '0':
+                    if city=='':
+                        package_list = Package.objects.prefetch_related('images','extras').filter(title__contains=title,start_date=date)
+                    else:
+                        package_list = Package.objects.prefetch_related('images','extras').filter(title__contains=title,start_date=date, location__city=city)
+           
         context = {
             'homective':'active',
             'title':'home',
@@ -25,9 +66,11 @@ class HomeView(View):
             'location_pak':location_pak,
             'blog_post' : blog_post,
             'clients' : clients,
+            'form':form
         }
         return render(request, 'package/index.html', context)
-
+    
+    
 # class HomeView(generic.ListView):
     # model = Package
     # template_name = 'package/index.html'
@@ -176,4 +219,5 @@ class GalleryView(generic.ListView):
     def get_queryset(self):
         qs = Package.objects.prefetch_related('images').all()
         return qs
+
 

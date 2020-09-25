@@ -31,9 +31,13 @@ class Location(models.Model):
     class Meta:
         verbose_name = 'Location'
         verbose_name_plural = '1. Location'
+    
+    def save(self, *args, **kwargs):
+        self.city = self.city.lower()
+        return super(Location, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f"{self.city} --> {self.place}"
+        return self.city
 
 
 class Package(models.Model):
@@ -151,3 +155,23 @@ class Clientfeedback(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+
+class ProductQuerySet(models.QuerySet):
+    def price_filter(self, price, last_price=None):
+        print(price, last_price)
+        if last_price:
+            print(last_price)
+            return self.filter(price__gte=last_price)
+        return self.filter(price__range=(0, price))
+
+class ProductManager(models.Manager):
+    def get_queryset(self):
+        return ProductQuerySet(self.model, using=self.db)
+
+    def price_filter(self, price, last_price):
+        return self.get_queryset().price_filter(price, last_price)
+
+
+    
+   
