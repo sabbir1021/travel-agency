@@ -17,27 +17,56 @@ def generate_unique_slug(klass, field):
     return slug
 
 
+class Division(models.Model):
+    name = models.CharField(max_length=30)
+
+    class Meta:
+        verbose_name = 'Division'
+        verbose_name_plural = '1. Division'
+
+    def __str__(self):
+        return self.name
+
+
+class City(models.Model):
+    division = models.ForeignKey(Division, on_delete=models.CASCADE)
+    name = models.CharField(max_length=30)
+
+    def save(self, *args, **kwargs):
+        self.name = self.name.lower()
+        return super(City, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+
+
 class Location(models.Model):
-    DIVISION_CHOICES = (
-        ('Dhaka', 'Dhaka'),
-        ('Khulna', 'Khulna'),
-        ('Rajshahi', 'Rajshahi')
-    )
-    division = models.CharField(max_length=200, choices=DIVISION_CHOICES , blank=True)
-    city = models.CharField(max_length=100 )
+    division = models.ForeignKey(Division, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
     place = models.CharField(max_length=100)
     image = models.ImageField(upload_to="Location Image")
 
     class Meta:
         verbose_name = 'Location'
-        verbose_name_plural = '1. Location'
-    
-    def save(self, *args, **kwargs):
-        self.city = self.city.lower()
-        return super(Location, self).save(*args, **kwargs)
+        verbose_name_plural = '2. Location'
 
     def __str__(self):
-        return self.city
+        return self.place
+
+
+class PackageQuerySet(models.QuerySet):
+    def price_filter(self, price, last_price=None):
+        print(price, last_price)
+        if last_price:
+            print(last_price)
+            return self.filter(price__gte=last_price)
+        return self.filter(price__range=(0, price))
+
+    def division_filter(self, division_id):
+        return self.filter(location__division__id=division_id)
+
+    def city_filter(self, city_id):
+        return self.filter(location__city__id=city_id)
 
 
 class Package(models.Model):
@@ -49,11 +78,12 @@ class Package(models.Model):
     description = models.TextField()
     start_date = models.DateField()
     end_date = models.DateField()
-    special = models.BooleanField(default=False)
+
+    objects = PackageQuerySet.as_manager()
 
     class Meta:
         verbose_name = 'Package'
-        verbose_name_plural = '2. Package'
+        verbose_name_plural = '3. Package'
 
     def save(self, *args, **kwargs):
         if self.slug:
@@ -78,7 +108,7 @@ class PackageImage(models.Model):
 
     class Meta:
         verbose_name = 'Package Image'
-        verbose_name_plural = '3. Package Images'
+        verbose_name_plural = '4. Package Images'
 
     def image_tag(self):
         return mark_safe(f"<img src='/media/{self.image}' width='150' height='150' />")
@@ -97,7 +127,7 @@ class PackageSchedule(models.Model):
 
     class Meta:
         verbose_name = 'Package Schedule'
-        verbose_name_plural = '4. Package Schedule'
+        verbose_name_plural = '5. Package Schedule'
 
     def __str__(self):
         return self.package.title
@@ -117,7 +147,7 @@ class PackageExtra(models.Model):
 
     class Meta:
         verbose_name = 'Package Extra'
-        verbose_name_plural = '5. Package Extra'
+        verbose_name_plural = '6. Package Extra'
 
     def __str__(self):
         return self.package.title
@@ -130,7 +160,7 @@ class PackageVideo(models.Model):
 
     class Meta:
         verbose_name = 'Package Video'
-        verbose_name_plural = '6. Package Videos'
+        verbose_name_plural = '7. Package Videos'
 
     def __str__(self):
         return self.package.title
@@ -146,6 +176,7 @@ class Booking(models.Model):
     def __str__(self):
         return str(self.name)
 
+
 class Clientfeedback(models.Model):
     name = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
@@ -155,23 +186,3 @@ class Clientfeedback(models.Model):
 
     def __str__(self):
         return str(self.name)
-
-
-class ProductQuerySet(models.QuerySet):
-    def price_filter(self, price, last_price=None):
-        print(price, last_price)
-        if last_price:
-            print(last_price)
-            return self.filter(price__gte=last_price)
-        return self.filter(price__range=(0, price))
-
-class ProductManager(models.Manager):
-    def get_queryset(self):
-        return ProductQuerySet(self.model, using=self.db)
-
-    def price_filter(self, price, last_price):
-        return self.get_queryset().price_filter(price, last_price)
-
-
-    
-   

@@ -1,7 +1,27 @@
 from django.contrib import admin
-from travel.models import Location, Package, PackageImage, PackageSchedule, PackageExtra, PackageVideo , Booking , Clientfeedback
+from travel.models import Division, City, Location, Package, PackageImage, PackageSchedule, PackageExtra, PackageVideo, Booking, Clientfeedback
 
 # Register your models here.
+
+
+class CityInline(admin.StackedInline):
+    model = City
+    extra = 0
+
+
+# class LocationInline(admin.StackedInline):
+#     model = Location
+#     extra = 0
+
+
+class DivisionAdmin(admin.ModelAdmin):
+    inlines = [CityInline]
+    list_display = ['name']
+    search_fields = ('name',)
+    list_per_page = 20
+
+
+admin.site.register(Division, DivisionAdmin)
 
 
 class LocationAdmin(admin.ModelAdmin):

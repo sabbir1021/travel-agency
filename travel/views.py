@@ -1,8 +1,8 @@
-from django.shortcuts import render , get_object_or_404 , redirect, HttpResponse
-from .models import Package , Location , Clientfeedback
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
+from .models import Package, Location, City, Clientfeedback
 from django.views import View, generic
-from django.db.models import Max, Min , Count , Sum
-from .forms import BookingForm , FilterForm
+from django.db.models import Max, Min, Count, Sum
+from .forms import BookingForm, FilterForm
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -10,81 +10,73 @@ from django.core.mail import send_mail
 import json
 from blog.models import Post
 
+
+def load_cities(request):
+    division_id = request.GET.get('division')
+    cities = City.objects.filter(division_id=division_id).order_by('name')
+    return render(request, 'package/partials/city_dropdown_list_options.html', {'cities': cities})
+
+
 class HomeView(View):
     def get(self, request, *args, **kwargs):
-        package_list = Package.objects.prefetch_related('images','extras').all().order_by('-id')[:6]
-        special_package = Package.objects.prefetch_related('images','extras').filter(special=True)
-        location_pak = Location.objects.all()
-        blog_post = Post.objects.all()
-        clients = Clientfeedback.objects.all().order_by('-id')[:5]
-        
-        form = FilterForm(request.GET)
-        if form.is_valid():
-            price = request.GET.get('price_range')
-            date = request.GET.get('date') or None
-            title = request.GET.get('title')
-            city = request.GET.get('city')
+        package_list = Package.objects.select_related('location').prefetch_related(
+            'images', 'extras').all()[:6]
 
-            if date == None:
-                if price == "500" or price == "1000" or price== "5000":
-                    if city=='':
-                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(0,price), title__contains=title )
-                    else:
-                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(0,price) ,location__city=city, title__contains=title )
-                if price == "inf":
-                    if city=='':
-                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(5000,100000),title__contains=title)
-                    else:
-                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(5000,100000),title__contains=title, location__city=city)
-                if price == '0':
-                    if city=='':
-                        package_list = Package.objects.prefetch_related('images','extras').filter(title__contains=title)
-                    else:
-                        package_list = Package.objects.prefetch_related('images','extras').filter(title__contains=title, location__city=city)
-            else:
-                if price == "500" or price == "1000" or price== "5000":
-                    if city=='':
-                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(0,price), start_date=date,title__contains=title )
-                    else:
-                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(0,price) ,location__city=city, start_date=date,title__contains=title )
-                if price == "inf":
-                    if city=='':
-                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(5000,100000),start_date=date,title__contains=title)
-                    else:
-                        package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(5000,100000),start_date=date,title__contains=title, location__city=city)
-                if price == '0':
-                    if city=='':
-                        package_list = Package.objects.prefetch_related('images','extras').filter(title__contains=title,start_date=date)
-                    else:
-                        package_list = Package.objects.prefetch_related('images','extras').filter(title__contains=title,start_date=date, location__city=city)
-           
+        # location_pak = Location.objects.all()
+        # blog_post = Post.objects.all()
+        # clients = Clientfeedback.objects.all().order_by('-id')[:5]
+
+        form = FilterForm()
+        # if form.is_valid():
+        #     price = request.GET.get('price_range')
+        #     date = request.GET.get('date') or None
+        #     title = request.GET.get('title')
+        #     city = request.GET.get('city')
+
+        #     if date == None:
+        #         if price == "500" or price == "1000" or price== "5000":
+        #             if city=='':
+        #                 package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(0,price), title__contains=title )
+        #             else:
+        #                 package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(0,price) ,location__city=city, title__contains=title )
+        #         if price == "inf":
+        #             if city=='':
+        #                 package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(5000,100000),title__contains=title)
+        #             else:
+        #                 package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(5000,100000),title__contains=title, location__city=city)
+        #         if price == '0':
+        #             if city=='':
+        #                 package_list = Package.objects.prefetch_related('images','extras').filter(title__contains=title)
+        #             else:
+        #                 package_list = Package.objects.prefetch_related('images','extras').filter(title__contains=title, location__city=city)
+        #     else:
+        #         if price == "500" or price == "1000" or price== "5000":
+        #             if city=='':
+        #                 package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(0,price), start_date=date,title__contains=title )
+        #             else:
+        #                 package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(0,price) ,location__city=city, start_date=date,title__contains=title )
+        #         if price == "inf":
+        #             if city=='':
+        #                 package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(5000,100000),start_date=date,title__contains=title)
+        #             else:
+        #                 package_list = Package.objects.prefetch_related('images','extras').filter(price__range=(5000,100000),start_date=date,title__contains=title, location__city=city)
+        #         if price == '0':
+        #             if city=='':
+        #                 package_list = Package.objects.prefetch_related('images','extras').filter(title__contains=title,start_date=date)
+        #             else:
+        #                 package_list = Package.objects.prefetch_related('images','extras').filter(title__contains=title,start_date=date, location__city=city)
+
         context = {
-            'homective':'active',
-            'title':'home',
+            # 'homective': 'active',
+            'title': 'home',
             'package_list': package_list,
-            'special_package': special_package,
-            'location_pak':location_pak,
-            'blog_post' : blog_post,
-            'clients' : clients,
-            'form':form
+            # 'special_package': special_package,
+            # 'location_pak':location_pak,
+            # 'blog_post' : blog_post,
+            # 'clients' : clients,
+            'form': form
         }
         return render(request, 'package/index.html', context)
-    
-    
-# class HomeView(generic.ListView):
-    # model = Package
-    # template_name = 'package/index.html'
-    # context_object_name = 'package_list'
-    # paginate_by = 10
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['title'] = 'Home'
-    #     return context
-
-    # def get_queryset(self):
-    #     qs = Package.objects.prefetch_related('images','extras').all()
-    #     return qs
 
 
 class PackageView(generic.ListView):
@@ -96,23 +88,46 @@ class PackageView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Package All'
-        context['packageactive'] = 'active'
+        context['form'] = FilterForm()
         return context
 
     def get_queryset(self):
-        qs = Package.objects.prefetch_related('images','extras').all()
+        qs = Package.objects.prefetch_related('images', 'extras').all()
         return qs
-    
+
+
+class PackageFilterView(View):
+    def get(self, request, *args, **kwargs):
+        filter_form = FilterForm(request.GET)
+
+        division = request.GET.get('division')
+        city = request.GET.get('city')
+
+        package_list = Package.objects.prefetch_related(
+            'images', 'extras').all()
+
+        if division:
+            package_list = package_list.division_filter(division)
+        if city:
+            package_list = package_list.city_filter(city)
+
+        context = {
+            'title': 'Search Result',
+            'form': filter_form,
+            'package_list': package_list
+        }
+
+        return render(request, 'package/package.html', context)
 
 
 # class PackageDetailsView(View):
 #     def get(self, request, *args, **kwargs):
 #         package = get_object_or_404(Package, id=self.request.resolver_match.kwargs['id'])
-#         form = BookingForm() 
+#         form = BookingForm()
 #         context = {
 #             'homective':'active',
 #             'title':'Package details',
-#             'package': package,  
+#             'package': package,
 #             'form':form
 #         }
 #         return render(request, 'package/package_details.html', context)
@@ -135,22 +150,25 @@ class PackageDetailsView(generic.ListView):
         context['title'] = 'Package details'
         context['packageactive'] = 'active'
         context['form'] = BookingForm(),
-        context['Similar_Packages'] = Package.objects.all().exclude(id=self.request.resolver_match.kwargs['id'])
+        context['Similar_Packages'] = Package.objects.all().exclude(
+            id=self.request.resolver_match.kwargs['id'])
         return context
 
     def get_queryset(self):
-        qs = get_object_or_404(Package, id=self.request.resolver_match.kwargs['id'])
+        qs = get_object_or_404(
+            Package, id=self.request.resolver_match.kwargs['id'])
         return qs
+
     def post(self, request, *args, **kwargs):
-        package = get_object_or_404(Package, id=self.request.resolver_match.kwargs['id'])
+        package = get_object_or_404(
+            Package, id=self.request.resolver_match.kwargs['id'])
         form = BookingForm(request.POST or None)
         if form.is_valid():
-            instance=form.save(commit=False)
-            instance.package=package
-            instance.save(); 
-        return redirect('travel:details',id=self.request.resolver_match.kwargs['id'])
-        
-    
+            instance = form.save(commit=False)
+            instance.package = package
+            instance.save()
+        return redirect('travel:details', id=self.request.resolver_match.kwargs['id'])
+
 
 class LocationView(generic.ListView):
     model = Package
@@ -165,9 +183,9 @@ class LocationView(generic.ListView):
         return context
 
     def get_queryset(self):
-        qs = Package.objects.prefetch_related('images','extras').filter(location=self.request.resolver_match.kwargs['id'])
+        qs = Package.objects.prefetch_related('images', 'extras').filter(
+            location=self.request.resolver_match.kwargs['id'])
         return qs
-
 
 
 @method_decorator(csrf_exempt, name='dispatch')
@@ -189,12 +207,13 @@ class SendEmailView(View):
                 fail_silently=False,
             )
             return redirect('travel:contact')
-            
+
         else:
             return HttpResponse(
                 json.dumps('Please Input All The Fields'),
                 content_type="application/json"
             )
+
 
 class ContactsView(View):
     def get(self, request, *args, **kwargs):
@@ -219,5 +238,3 @@ class GalleryView(generic.ListView):
     def get_queryset(self):
         qs = Package.objects.prefetch_related('images').all()
         return qs
-
-

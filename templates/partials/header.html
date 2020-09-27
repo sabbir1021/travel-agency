@@ -14,8 +14,8 @@
 						<div class="book-btn">
 							<a href="#">Book Now</a>
 						</div>
-						
-						
+
+
 					</div>
 				</div>
 			</div>
@@ -34,19 +34,19 @@
 				<div class="col-md-10">
 					<nav>
 						<ul class="main-menu text-right">
-							<li class="{{homective}}"><a href="/">Home</a>
+							<li class=""><a href="/">Home</a>
 							</li>
-							<li class="{{packageactive}}"><a href="{% url 'travel:package' %}">Package List</a>	
+							<li class="{{packageactive}}"><a href="{% url 'travel:package_list' %}">Package List</a>
 							</li>
-							<li class="{{blogactive}}"><a href="{% url 'travel:gallery' %}">Gallery</a>
-								
+							<li class=""><a href="{% url 'travel:gallery' %}">Gallery</a>
+
 							</li>
-							<li class="{{blogactive}}"><a href="{% url 'blog:blog_home' %}">Blog</a>
-								
+							<li class=""><a href="{% url 'blog:blog_home' %}">Blog</a>
+
 							</li>
-							
-							<li class="{{contactactive}}"><a href="{% url 'travel:contact' %}">Contact</a></li>
-							
+
+							<li class=""><a href="{% url 'travel:contact' %}">Contact</a></li>
+
 							{% if request.user.is_authenticated %}
 								<li><a href="{% url 'accounts:logout' %}">Logout</a></li>
 								<li><a href="{% url 'accounts:profile' %}">Profile</a></li>

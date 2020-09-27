@@ -1,6 +1,7 @@
-from django import forms 
-from .models import Booking , Location
+from django import forms
+from .models import Booking, Location, Package, City
 from django.conf import settings
+
 
 class BookingForm(forms.ModelForm):
     class Meta:
@@ -13,7 +14,7 @@ class BookingForm(forms.ModelForm):
         ]
 
 
-class FilterForm(forms.Form):
+class FilterForm(forms.ModelForm):
     PRICE_CHOICES = (
         ('0', 'Price Range'),
         ('500', 'Up To 500'),
@@ -28,6 +29,24 @@ class FilterForm(forms.Form):
     date = forms.DateField(
         label="", required=False,
         widget=forms.TextInput(attrs={'type': 'date'})
-                )
-    city = forms.ModelChoiceField(
-        label="",queryset=Location.objects.values_list('city', flat=True).distinct(), required=False)
+    )
+
+    class Meta:
+        model = Location
+        fields = ('division', 'city')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['city'].queryset = Location.objects.none()
+
+        if 'division' in self.data:
+            try:
+                division_id = int(self.data.get('division'))
+                self.fields['city'].queryset = City.objects.filter(
+                    division_id=division_id).order_by('name')
+            except (ValueError, TypeError):
+                print('cathc')
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['city'].queryset = self.instance.division.city_set.order_by(
+                'name')

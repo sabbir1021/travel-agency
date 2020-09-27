@@ -46,8 +46,8 @@
                         </ul>
                     </div><!-- tab menu strat -->
                     <div class="package_banner">
-                        {% with package.images.all|first as image %}                      
-                                <img src="{{image.image.url}}" alt="" class="img-fluid">                           
+                        {% with package.images.all|first as image %}
+                                <img src="{{image.image.url}}" alt="" class="img-fluid">
                         {% endwith %}
                     </div>
                     <div class="package-tab-menu">
@@ -63,19 +63,19 @@
                     <div class="row">
                         <!-- tabs content -->
                         <div class="tab-content">
-                            {% include 'package/package_details_partials/description.html' %}
-                            {% include 'package/package_details_partials/tourguide.html' %}
-                            {% include 'package/package_details_partials/video.html' %}
-                            {% include 'package/package_details_partials/review.html' %}
+                            {% include 'package/partials/description.html' %}
+                            {% include 'package/partials/tourguide.html' %}
+                            {% include 'package/partials/video.html' %}
+                            {% include 'package/partials/review.html' %}
                         </div><!-- tabs content-->
                     </div><!-- tab content end -->
                 </div><!-- single package tab with details -->
-                {% include 'package/package_details_partials/booking.html' %}
+                {% include 'package/partials/booking.html' %}
             </div>
         </div>
     </section>
-    
 
-    {% include 'package/package_details_partials/similar_package.html' %}
+
+    {% include 'package/partials/similar_package.html' %}
 
 {% endblock content %}

@@ -6,16 +6,17 @@
 		<div class="row">
 			<div class="col-12 col-md-12">
 				<div class="search_form">
-					<form action="#" method="get">
-					
+					<form action="{% url 'travel:package_filter' %}" method="GET" id="filterForm" data-cities-url="{% url 'travel:ajax_load_cities' %}">
+
 						{{ form.title|as_crispy_field }}
+						{{ form.division|as_crispy_field }}
 						{{ form.city|as_crispy_field }}
 						{{ form.price_range|as_crispy_field }}
 						{{ form.date|as_crispy_field }}
 						{% comment %} <div class="form-group">
 							<input type="date" name="date" value="" class="hotel-input-first">
 						</div>  {% endcomment %}
-							
+
 						<div class="form-group searc-btn-7">
 							<button type="submit">Search</button>
 						</div>
