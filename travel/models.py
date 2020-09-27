@@ -68,6 +68,12 @@ class PackageQuerySet(models.QuerySet):
     def city_filter(self, city_id):
         return self.filter(location__city__id=city_id)
 
+    def date_filter(self, date):
+        return self.filter(start_date__gte=date)
+
+    def query_filter(self, q):
+        return self.filter(title__icontains=q, description__icontains=q)
+
 
 class Package(models.Model):
     title = models.CharField(max_length=255)

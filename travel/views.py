@@ -102,6 +102,9 @@ class PackageFilterView(View):
 
         division = request.GET.get('division')
         city = request.GET.get('city')
+        price = request.GET.get('price_range')
+        date = request.GET.get('date')
+        title = request.GET.get('title')
 
         package_list = Package.objects.prefetch_related(
             'images', 'extras').all()
@@ -110,6 +113,19 @@ class PackageFilterView(View):
             package_list = package_list.division_filter(division)
         if city:
             package_list = package_list.city_filter(city)
+
+        if price:
+            if price != '0':
+                if price == 'inf':
+                    package_list = package_list.price_filter(0, 5000)
+                else:
+                    package_list = package_list.price_filter(int(price))
+
+        if date:
+            package_list = package_list.date_filter(date)
+
+        if title:
+            package_list = package_list.query_filter(title)
 
         context = {
             'title': 'Search Result',
